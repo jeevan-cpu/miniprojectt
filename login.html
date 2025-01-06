@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Form container */
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .instructions {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+            color: #f0e68c;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder {
+            color: #d9d9d9;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            background: #2575fc;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #6a11cb;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            form {
+                padding: 15px 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" action="/start_quiz">
+        <h1>Welcome to the Quiz</h1>
+        <div class="instructions">
+            <p><strong>Instructions:</strong></p>
+            <ul>
+                <li>Do not copy and paste the questions.</li>
+                <li>Answer the questions honestly and to the best of your ability.</li>
+                <li>Ensure that your information (name, email, roll number) is accurate.</li>
+            </ul>
+        </div>
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter here" required>
+
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter here" required>
+
+        <label for="roll">Enter your roll number:</label>
+        <input type="text" id="roll" name="roll" placeholder="Enter here" required>
+
+        <button type="submit">Start Quiz</button>
+    </form>
+</body>
+</html>

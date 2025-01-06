@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Quiz Container */
+        form {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+        }
+
+        /* Title and Timer */
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        #timer {
+            font-size: 1.2rem;
+            color: #d9534f;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Questions */
+        .question {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .question:last-child {
+            border-bottom: none;
+        }
+
+        p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        label {
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        /* Submit Button */
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #4caf50;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            p,
+            label {
+                font-size: 0.9rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <script>
+        // Prevent right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Event listeners for copy and paste
+        document.addEventListener('copy', event => {
+            event.preventDefault();
+            alert("Copying is not allowed. Your quiz will be submitted.");
+            document.getElementById("quiz-form").submit(); // Automatically submit the form
+        });
+
+        document.addEventListener('paste', event => {
+            event.preventDefault();
+            alert("Pasting is not allowed. Your quiz will be submitted.");
+            document.getElementById("quiz-form").submit(); // Automatically submit the form
+        });
+
+        // Timer countdown (60 seconds)
+        let timeLeft = 60; // 60 seconds timer
+        function startTimer() {
+            const timerDisplay = document.getElementById('timer');
+            const interval = setInterval(function() {
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    document.getElementById("quiz-form").submit(); // Automatically submit after time runs out
+                } else {
+                    timerDisplay.innerText = `Time Left: ${timeLeft} seconds`;
+                }
+                timeLeft -= 1;
+            }, 1000);
+        }
+
+        window.onload = startTimer;
+    </script>
+</head>
+<body>
+    <form id="quiz-form" action="{{ url_for('submit') }}" method="POST">
+        <h2>Welcome to the Quiz, {{ name }}</h2>
+        <p id="timer">Time Left: 60 seconds</p>
+
+        <!-- Hidden inputs to pass data -->
+        <input type="hidden" name="name" value="{{ name }}">
+        <input type="hidden" name="email" value="{{ email }}">
+        <input type="hidden" name="roll" value="{{ roll }}">
+
+        <!-- Dynamic questions -->
+        {% for question_id, question in questions.items() %}
+            <div class="question">
+                <p>{{ loop.index }}. {{ question['question'] }}</p>
+                {% for choice in question['choices'] %}
+                    {% if choice %}
+                        <label>
+                            {% if question['type'] == 'multiple' %}
+                                <input type="checkbox" name="{{ question_id }}" value="{{ choice }}"> {{ choice }}
+                            {% else %}
+                                <input type="radio" name="{{ question_id }}" value="{{ choice }}"> {{ choice }}
+                            {% endif %}
+                        </label><br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+        
+        <button type="submit">Submit Quiz</button>
+    </form>
+</body>
+</html>
+
+
+

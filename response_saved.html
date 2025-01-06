@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Response Saved</title>
+    <style>
+        /* General body styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Container for the content */
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        /* Heading styles */
+        h2 {
+            font-size: 24px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        /* Paragraph styling */
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Link styling */
+        a {
+            font-size: 18px;
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Link hover effect */
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        // Disable the back button by preventing history navigation
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.pushState(null, null, location.href);
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Your response has been saved, {{ name }}!</h2> <!-- Display the name -->
+        <p>Thank you for completing the quiz. You cannot modify your answers now.</p>
+        <a href="/">Go back to the homepage</a>
+    </div>
+</body>
+</html>
